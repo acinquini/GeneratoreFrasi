@@ -1,0 +1,66 @@
+Parola;Tipo 
+e;Semplice
+ne';Semplice
+o;Semplice
+inoltre;Semplice
+ma;Semplice
+pero';Semplice
+dunque;Semplice
+anzi;Semplice
+che;Semplice
+allorche';Composta
+perche';Composta
+giacche';Composta
+purche';Composta
+affinche';Composta
+eppure;Composta
+oppure;Composta
+dopoche';Composta
+con tutto cio';Locuzione
+di modo che;Locuzione
+in quanto che;Locuzione
+e;Copulativa
+anche;Copulativa
+neanche;Copulativa
+neppure;Copulativa
+o;Disgiuntiva
+ovvero;Disgiuntiva
+ossia;Disgiuntiva
+oppure;Disgiuntiva
+ma;Avversativa
+pero';Avversativa
+tuttavia;Avversativa
+anzi;Avversativa
+infatti;Dichiarativa
+cioe';Dichiarativa
+ossia;Dichiarativa
+dunque;Conclusiva
+quindi;Conclusiva
+percio';Conclusiva
+sia;Correlativa
+o;Correlativa
+che;Dichiarativa
+come;Dichiarativa
+quando;Temporale
+mentre;Temporale
+finche';Temporale
+affinche';Finale
+perche';Finale
+perche';Causale
+poiche';Causale
+siccome;Causale
+cosi' che;Consecutiva
+tanto che;Consecutiva
+come;Modale
+piu' che;Comparativa
+tanto che;Comparativa
+sebbene;Concessiva
+quantunque;Concessiva 
+se;Condizionale
+purche';Condizionale
+qualora;Condizionale
+perche';Interrogativa
+come;Interrogativa
+se;Interrogativa
+fuorche';Eccettuativa
+tranne che;Eccettuativa

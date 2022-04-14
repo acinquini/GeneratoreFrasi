@@ -1,54 +1,142 @@
-# Struttura Frase
-#
-#  Il cane      mangia la mela
-#            |
-#      PN        PV
-#       |        |
-#     A   N    V   PN
+import csv
+import random as r
 
-# TODO:
-# 1.Trasformare liste in liste di dictionary per poter introdurre selezione guidata da genere e numero
-# 2.Pensare a strutture frasi piu' complesse
-# 3.Leggere vocabolario da file esterni (json o csv)
-
+# Funzione per assemblare stringhe
 def assemble(*args):
     return " ".join(args)
 
-def PN(A,N):
-    return(assemble(A,N))
+# Funzione che legge un file csv e memorizza
+# i dati nelle lista passata come argomento
+def readData(L, filename):
+    file = open(filename, 'r')
+    with file:
+        read = csv.DictReader(file, delimiter=";")
+        for row in read:
+            L.append(dict(row))
 
-def PV(V,PN):
-    return(assemble(V,PN))
+# Funzione che sceglie casualmente un articolo ma coerente
+# con il genere e numero del sostantivo passato
+def randomArticle(genre, name):
 
-def sentence(PN,PV):
-    return assemble(PN, PV)
+    vowels = ['a','e','i','o','u']
 
-# A1 = 'Il'
-# N1 = 'cane'
-# V1 = 'mangia'
-# A2 = 'la'
-# N2 = 'mela'
-# PN1 = PN(A1,N1)
-# PN2 = PN(A2,N2)
-# PV1 = PV(V1,PN2) 
-# print(sentence(PN1,PV1))
+    if (genre == 's.f.'):
+        if (name[0] in vowels):
+            A_filtered = ["l'","un'"]
+        else:
+            A_filtered = ["la","una"]
+    elif (genre == 'p.f.'):
+        A_filtered = ["le","delle"]
+    elif (genre == 's.m.'):
+        if (name[0] in vowels):
+            A_filtered = ["l'","un"]
+        elif ((name[0] == 's') and (name[1] not in vowels) or
+              (name[0] == 'g') and (name[1] == 'n') or
+              (name[0] == 'p') and (name[1] == 's') or
+              (name[0] == 'x') or  (name[0] == 'y') or  (name[0] == 'z')):
+            A_filtered = ["lo","uno"]
+        else:
+            A_filtered = ["il","un"]
+    elif (genre == 'p.m.'):
+        if (name[0] in vowels):
+            A_filtered = ["gli","degli"]
+        elif ((name[0] == 's') and (name[1] not in vowels) or
+              (name[0] == 'g') and (name[1] == 'n') or
+              (name[0] == 'p') and (name[1] == 's') or
+              (name[0] == 'x') or  (name[0] == 'y') or  (name[0] == 'z')):
+            A_filtered = ["gli'","degli"]
+        else:
+            A_filtered = ["i","dei"]
+    else:
+        raise Exception ('GenreNumberError')
+    return(r.choice(A_filtered))
 
-import random as r
+# Funzione per costruzione casuale frase tipo:
+# "Il cane mangia la mela"
+#  A1  N1  V1(tr) A2 N2
+def randomSentenceType1(words, verbs):
+    # Selezione casuale nome
+    N1_dict = r.choice(words)
+    N1 = N1_dict['Parola']
+    genre = N1_dict['GenereNumero']
 
-N = ['cane', 'scimmia', 'tigre', 'leone', 'mela', 'pera', 'banana']
-V = ['mangia', 'annusa', 'morde', 'azzanna', 'lecca', 'rompe']
-A = ['il', 'la', 'un', 'una']
+    # Selezione filtrata da genere e numero articolo
+    A1 = randomArticle(genre, N1)
 
-def loop(nbr_of_sentences):
+    # Selezione filtrata dei verbi: transitivi e in accordo
+    # a sostantivo
+    V_filtered = [v for v in verbs if ((v['Transitivo'] == 'v.tr.') and v['GenereNumero'][0] == genre[0])]
+    V1 = r.choice(V_filtered)['Parola']
+    V_filtered.clear()
+
+    # Selezione casuale nome
+    N2_dict = r.choice(words)
+    N2 = N2_dict['Parola']
+    genre =  N2_dict['GenereNumero']
+
+    # Selezione filtrata da genere e numero articolo
+    A2 = randomArticle(genre, N2)
+
+    # Costruzione casuale frase in base a struttura
+    return(assemble(A1,N1,V1,A2,N2))
+
+# Funzione per costruzione casuale frase tipo:
+# "Mentre il cane mangia la pecora corre"
+#  C1     A1  N1  V1     A2 N2      V2
+def randomSentenceType2(words, verbs, conjunctions):
+
+    # Selezione casuale congiunzione
+    C1_dict = r.choice(conjunctions)
+    C1 = C1_dict['Parola']
+
+    # Selezione casuale nome
+    N1_dict = r.choice(words)
+    N1 = N1_dict['Parola']
+    genre = N1_dict['GenereNumero']
+
+    # Selezione filtrata da genere e numero articolo
+    A1 = randomArticle(genre, N1)
+
+    # Selezione filtrata dei verbi in accordo a sostantivo
+    V_filtered = [v for v in verbs if (v['GenereNumero'][0] == genre[0])]
+    V1 = r.choice(V_filtered)['Parola']
+    V_filtered.clear()
+
+    # Selezione casuale nome
+    N2_dict = r.choice(words)
+    N2 = N2_dict['Parola']
+    genre =  N2_dict['GenereNumero']
+
+    # Selezione filtrata da genere e numero articolo
+    A2 = randomArticle(genre, N2)
+
+    # Selezione filtrata dei verbi in accordo a sostantivo
+    V_filtered = [v for v in verbs if (v['GenereNumero'][0] == genre[0])]
+    V2 = r.choice(V_filtered)['Parola']
+    V_filtered.clear()
+
+    # Costruzione casuale frase in base a struttura
+    return(assemble(C1,A1,N1,V1,A2,N2,V2))
+
+### INIZIO PROGRAMMA ###
+Words = []
+Verbs = []
+Conjunctions = []
+
+# Recuperiamo i dati dai file esterni
+readData(Words, 'data/nomi.csv')
+readData(Verbs, 'data/verbi.csv')
+readData(Conjunctions, 'data/congiunzioni.csv')
+
+# Funzione per ripetizione ciclica generazione
+# frasi casuali. Il tipo di frase e' a sua volta
+# scelto casualmente
+def generate(nbr_of_sentences):
     for i in range(nbr_of_sentences):
-        A1 = r.choice(A)
-        N1 = r.choice(N)
-        V1 = r.choice(V)
-        A2 = r.choice(A)
-        N2 = r.choice(N)
-        PN1 = PN(A1,N1)
-        PN2 = PN(A2,N2)
-        PV1 = PV(V1,PN2) 
-        print(sentence(PN1,PV1))
+        if r.randint(1,2) == 1:
+            print(randomSentenceType1(Words, Verbs))
+        else:
+            print(randomSentenceType2(Words, Verbs, Conjunctions))
 
-loop(10)
+# Eseguiamo la generazione
+generate(100)
