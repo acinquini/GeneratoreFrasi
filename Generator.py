@@ -148,22 +148,19 @@ Verbs = []
 Conjunctions = []
 Adjectives = []
 
+nbr_of_sentences = int(input("Inserisci il numero di frasi da generare: "))
+
 # Recuperiamo i dati dai file esterni
 readData(Words, 'data/nomi.csv')
 readData(Verbs, 'data/verbi.csv')
 readData(Conjunctions, 'data/congiunzioni.csv')
 readData(Adjectives, 'data/aggettivi.csv')
 
-# Funzione per ripetizione ciclica generazione
-# frasi casuali. Il tipo di frase e' a sua volta
-# scelto casualmente
-def generate(nbr_of_sentences):
-    for i in range(nbr_of_sentences):
-        if r.randint(1,2) == 1:
-            print(randomSentenceType1(Words, Verbs, Adjectives))
-        else:
-            print(randomSentenceType2(Words, Verbs, Conjunctions, Adjectives))
-
 # Eseguiamo la generazione di frasi casuali con diversa struttura
-generate(100)
+for i in range(nbr_of_sentences):
+    if r.randint(1,2) == 1:
+        print(randomSentenceType1(Words, Verbs, Adjectives))
+    else:
+        print(randomSentenceType2(Words, Verbs, Conjunctions, Adjectives))
+
 

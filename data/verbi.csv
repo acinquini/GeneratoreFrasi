@@ -31,7 +31,6 @@ ripete;s;v.tr.
 uccide;s;v.tr.
 possiede;s;v.tr.
 produce;s;v.tr.
-sorgere;s;v.tr.
 attende;s;v.tr.
 capisce;s;v.tr.
 chiede;s;v.tr.
@@ -54,7 +53,7 @@ portano;p;v.tr.
 pregano;p;v.tr.
 provano;p;v.tr.
 resistono;p;v.tr.
-scherzano;p;v.tr.
+scherzano;p;v.intr.
 soffrono;p;v.tr.
 studiano;p;v.tr.
 svolgono;p;v.tr.
@@ -171,7 +170,7 @@ impediscono;p;v.intr.
 iniziano;p;v.intr.
 restano;p;v.intr.
 ridono;p;v.intr.
-riesconp;p;v.intr.
+riescono;p;v.intr.
 salgono;p;v.intr.
 scompariscono;p;v.intr.
 vincono;p;v.intr.
